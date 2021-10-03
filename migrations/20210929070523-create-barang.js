@@ -43,8 +43,8 @@ module.exports = {
           notNull: true ,
         }
       },
-      barangCategoryName: {
-        type: Sequelize.STRING,
+      categoryId: {
+        type: Sequelize.INTEGER,
         allowNull: false, 
         validate : {
           notNull: true ,

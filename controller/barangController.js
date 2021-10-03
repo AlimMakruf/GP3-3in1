@@ -11,7 +11,7 @@ class BarangController {
     }
     static createBarang = async (req, res, next) => {
         try {
-            const { barangNama, barangPrice, barangDes, barangBrand, barangQuantity, barangCategoryName } = req.body;
+            const { barangNama, barangPrice, barangDes, barangBrand, barangQuantity, categoryId } = req.body;
 
             const newBarangData = {
                 barangNama: barangNama,
@@ -19,7 +19,7 @@ class BarangController {
                 barangDes: barangDes,
                 barangBrand: barangBrand,
                 barangQuantity: barangQuantity,
-                barangCategoryName: barangCategoryName,
+                categoryId: +categoryId,
             }
 
             const newBarang = await BarangModel.create(newBarangData)

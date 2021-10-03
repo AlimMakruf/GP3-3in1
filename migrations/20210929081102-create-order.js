@@ -16,7 +16,7 @@ module.exports = {
         }
       },
       orderDate: {
-        type: Sequelize.STRING, 
+        type: Sequelize.DATE, 
         allowNull: false,
         validate: {
           notNull: true

@@ -3,7 +3,7 @@ const OrderModel = require('./../models').order;
 class OrderController {
     static getAll = async (req, res, next) => {
         try {
-            const orderData = await OrderModel.findAll();
+            const orderData = await OrderModel.findAll({include: User});
             res.status(200).json(orderData)
         } catch (error) {
             next(error)
@@ -11,19 +11,20 @@ class OrderController {
     }
     static createOrder = async (req, res, next) => {
         try {
-            const { orderCode, orderDate, userId } = req.body;
+            const { orderCode } = req.body;
 
             const newOrderData = {
                 orderCode: orderCode,
-                orderDate: orderDate,
-                userId: userId
+                orderDate: new Date(),
             }
+            console.log(newOrderData)
 
             const newOrder = await OrderModel.create(newOrderData)
 
             res.status(201).json({
-                message: "New Barang has been added",
-                User: newOrder
+                message: "Order has been added",
+                 User: newOrder,
+                include: User
             })
 
         } catch (error) {
@@ -36,7 +37,7 @@ class OrderController {
             const orderData = await OrderModel.findOne({
                 where : {
                     id: orderId
-                }
+                },
             });
             if(!orderData) {
                 res.status(404).json({

@@ -18,7 +18,7 @@ module.exports = {
      barangDes: "Vans Old Skool Classic Black White Kualitas Premium, Made In China Kondisi Baru/Newb bahan Canvas, Suede dan Rubber Sole",
      barangBrand: "Vans",
      barangQuantity: 20,
-     barangCategoryName:"Sepatu Casual",
+     categoryId: 1,
      createdAt: new Date(),
      updatedAt: new Date()
    },
@@ -29,7 +29,7 @@ module.exports = {
     barangDes: "Sepatu sekolah anak hitam 100% ORIGINAL buatan asli INDONESIA",
     barangBrand: "Homyped",
     barangQuantity: 20,
-    barangCategoryName:"Sepatu Sekolah",
+    categoryId: 2,
     createdAt: new Date(),
     updatedAt: new Date()
   }

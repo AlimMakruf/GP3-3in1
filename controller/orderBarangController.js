@@ -1,25 +1,20 @@
-const OrderBarangModel = require('../models').orderBarang
+const OrderBarangModel = require('../models').orderBarang;
+const OrderModel = require('../models').OrderModel;
 
 class OrderBarangController {
-    static getAll = async (req,res,next) => {
-        try {
-            const data = await OrderBarangModel.findAll()
-
-            if(!data) {
-                return next({code: 404, message: 'Order Barang not found'})
-            }
-            status(200).json(data)
-        } catch (error) {
-            next(error)
-        }
-    }
     static createOrderBarang = async (req,res,next) => {
         try {
-            const { barangId, orderId } = req.body;
+            const { orderId } = req.params
+            const { barangId } = req.body;
+
+            if(+orderId != req.current.user) {
+                res.status(404).json({
+                    message: "Hayoo.. pake id siapa??"
+                })
+            }
 
             const newOrderBarangData = {
-                barangId: barangId,
-                orderId: orderId,
+                barangId: +barangId,
             }
 
             const newData = await OrderBarangModel.create(newOrderBarangData)
@@ -32,35 +27,20 @@ class OrderBarangController {
             next(error)
         } 
     }
-    static getDetail = async (req, res, next) => {
-        try {
-            const { orderBarangId } = req.params
-            const data = await OrderBarangModel.findOne({
-                where : {
-                    id: orderBarangId
-                }
-            });
-            if(!data) {
-                res.status(404).json({
-                    message: "barang tidak ditemukan"
-                })
-            }
-            res.status(200).json(data)
-        } catch (error) {
-            next(error)
-        }
-    }
     static deleteOrderBarang = async (req, res, next) => {
         try {
+            const { orderId } = req.params
             const { orderBarangId } = req.params
+
             const data = await OrderBarangModel.findOne({
                 where : {
                     id: orderBarangId
                 }
             });
-            if(!data) {
+            
+            if(+orderId !== req.current.user) {
                 res.status(404).json({
-                    message: "barang tidak ditemukan"
+                    message: "User tidak sesuai"
                 })
             }
 

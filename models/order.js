@@ -11,6 +11,8 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      this.belongsTo(models.User, {foreignKey: "userId"})
+      this.belongsToMany(models.Barang, {foreignKey: "orderId", through: "orderBarangs"})
     }
   };
   order.init({
@@ -22,7 +24,7 @@ module.exports = (sequelize, DataTypes) => {
       }
     },
     orderDate: {
-      type: DataTypes.STRING, 
+      type: DataTypes.DATE, 
       allowNull: false,
       validate: {
         notNull: true
